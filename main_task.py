@@ -34,6 +34,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_epochs", type=int, default=20, help="No of epochs")
     parser.add_argument("--lr", type=float, default=0.00005, help="learning rate")
     parser.add_argument("--model_no", type=int, default=0, help="Model ID")
+    parser.add_argument("--pretrain_model",type=str, default='bert-base-uncased', help= "pretrain model path or name")
     
     args = parser.parse_args()
     

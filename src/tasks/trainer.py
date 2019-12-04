@@ -34,7 +34,9 @@ def train_and_fit(args):
     train_loader, test_loader, train_len, test_len = load_dataloaders(args)
     logger.info("Loaded %d Training samples." % train_len)
     
-    net = BertModel.from_pretrained('bert-base-uncased', force_download=False, \
+    #net = BertModel.from_pretrained('bert-base-uncased', force_download=False, \
+    #                               task='classification', n_classes_=args.num_classes)
+    net = BertModel.from_pretrained(args.pretrain_model, force_download=False, \
                                     task='classification', n_classes_=args.num_classes)
     
     tokenizer = load_pickle("BERT_tokenizer.pkl")

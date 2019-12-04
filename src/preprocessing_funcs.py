@@ -122,7 +122,7 @@ def create_pretraining_corpus(raw_text, window_size=40):
     return D
 
 class pretrain_dataset(Dataset):
-    def __init__(self, D, batch_size=None):
+    def __init__(self, D, batch_size=None, pretrain_model):
         self.internal_batching = True
         self.batch_size = batch_size # batch_size cannot be None if internal_batching == True
         self.alpha = 0.7
@@ -131,8 +131,9 @@ class pretrain_dataset(Dataset):
         self.df = pd.DataFrame(D, columns=['r','e1','e2'])
         self.e1s = list(self.df['e1'].unique())
         self.e2s = list(self.df['e2'].unique())
-        
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+
+        self.tokenizer = BertTokenizer.from_pretrained(pretrain_model, do_lower_case=True)
+        #self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
         self.tokenizer.add_tokens(['[E1]', '[/E1]', '[E2]', '[/E2]', '[BLANK]'])
         self.cls_token = self.tokenizer.cls_token
         self.sep_token = self.tokenizer.sep_token
@@ -332,7 +333,7 @@ def load_dataloaders(args, max_length=50000):
         logger.info("Loaded pre-training data from saved file")
         D = load_pickle("D.pkl")
         
-    train_set = pretrain_dataset(D, batch_size=args.batch_size)
+    train_set = pretrain_dataset(D, batch_size=args.batch_size, pretrain_model=args.pretrain_model)
     train_length = len(train_set)
     '''
     # if using fixed batching
