@@ -624,7 +624,9 @@ class BertModel(BertPreTrainedModel):
             #self.lm_bias = nn.Parameter(torch.zeros(config.vocab_size))
         elif self.task == 'classification':
             self.n_classes_ = n_classes_
-            self.classification_layer = nn.Linear(1536, n_classes_)
+            #self.classification_layer = nn.Linear(1536, n_classes_)
+            #self.classification_layer = nn.Linear(2048, n_classes_)
+            self.classification_layer = nn.Sequential(nn.Linear(1536, n_classes_),nn.Dropout(0.1))
 
     def get_input_embeddings(self):
         return self.embeddings.word_embeddings

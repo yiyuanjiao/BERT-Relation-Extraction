@@ -35,7 +35,8 @@ def train_and_fit(args):
     train_len = len(train_loader)
     logger.info("Loaded %d pre-training samples." % train_len)
     
-    net = BertModel.from_pretrained('bert-base-uncased', force_download=False)
+    #net = BertModel.from_pretrained('bert-base-uncased', force_download=False)
+    net = BertModel.from_pretrained(args.pretrain_model, force_download=False)
     tokenizer = load_pickle("BERT_tokenizer.pkl")
     net.resize_token_embeddings(len(tokenizer)) 
     if cuda:

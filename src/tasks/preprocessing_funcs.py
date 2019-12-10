@@ -148,7 +148,8 @@ def load_dataloaders(args):
         logger.info("Loaded tokenizer from pre-trained blanks model")
     else:
         logger.info("Pre-trained blanks tokenizer not found, initializing new tokenizer...")
-        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+        #tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+        tokenizer = BertTokenizer.from_pretrained(args.pretrain_model, do_lower_case=True)
         tokenizer.add_tokens(['[E1]', '[/E1]', '[E2]', '[/E2]', '[BLANK]'])
 
         save_as_pickle("BERT_tokenizer.pkl", tokenizer)

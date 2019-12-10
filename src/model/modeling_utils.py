@@ -323,6 +323,7 @@ class PreTrainedModel(nn.Module):
         state_dict = kwargs.pop('state_dict', None)
         cache_dir = kwargs.pop('cache_dir', None)
         from_tf = kwargs.pop('from_tf', False)
+        #from_tf = kwargs.pop('from_tf', True)
         force_download = kwargs.pop('force_download', False)
         proxies = kwargs.pop('proxies', None)
         output_loading_info = kwargs.pop('output_loading_info', False)
